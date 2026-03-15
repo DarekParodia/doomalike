@@ -1,15 +1,18 @@
 #include <iostream>
 
-#include "window.h"
+#include "game.h"
+#include "rendering.h"
 
 int main() {
     std::cout << "halo dziala" << std::endl;
 
-    rendering::Window window(1280, 720);
-    window.init();
+    game::init();
+    rendering::init();
 
-    while(!window.shouldClose()){
-        window.update();
+    while(!rendering::window.shouldClose()) {
+        game::update();
+        game::render();
+        rendering::render();
     }
 
     return 0;
