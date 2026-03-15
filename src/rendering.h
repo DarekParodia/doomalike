@@ -5,7 +5,6 @@
 
 namespace rendering {
     extern rendering::Window window;
-    extern size_t            currentFrame;
 
     void                     init();
     void                     render();
