@@ -1,0 +1,17 @@
+#pragma once
+
+#define OFF                        0
+#define ON                         1
+
+#define PROJECT_NAME               "@PROJECT_NAME@"
+#define PROJECT_DISPLAYNAME        "@PROJECT_DISPLAYNAME@"
+#define PROJECT_VER                "@PROJECT_VERSION@"
+#define PROJECT_VER_MAJOR          "@PROJECT_VERSION_MAJOR@"
+#define PROJECT_VER_MINOR          "@PROJECT_VERSION_MINOR@"
+#define PROJECT_VER_PATCH          "@PROJECT_VERSION_PATCH@"
+
+#define PROJECT_VER_MAJOR_UINT     ((unsigned int) (PROJECT_VER_MAJOR[0] - '0'))
+#define PROJECT_VER_MINOR_UINT     ((unsigned int) (PROJECT_VER_MINOR[0] - '0'))
+#define PROJECT_VER_PATCH_UINT     ((unsigned int) (PROJECT_VER_PATCH[0] - '0'))
+
+#define PROJECT_ROOT_RELATIVE_PATH "@PROJECT_ROOT_RELATIVE_PATH@"
