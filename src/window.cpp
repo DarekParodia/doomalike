@@ -1,0 +1,87 @@
+#include "window.h"
+#include "config.h"
+
+#include <iostream>
+#include <format>
+
+namespace rendering {
+    Window::Window(int width, int height) {
+        this->width  = width;
+        this->height = height;
+    }
+
+    Window::~Window() {
+    }
+
+    void Window::init() {
+        win = RGFW_createWindow(
+            PROJECT_DISPLAYNAME,
+            0,
+            0,
+            width,
+            height,
+            RGFW_windowCenter);
+
+        RGFW_window_setUserPtr(win, this);
+        RGFW_window_setExitKey(win, RGFW_escape);
+        RGFW_setWindowResizedCallback(windowresizefunc);
+
+        // init buffer
+        resize(width, height);
+
+        // render random things for testing
+        int i = 0;
+
+        for(int x = 0; x < width; x++){
+            for(int y = 0; y < height; y++){
+                _framebuffer[i].r = x % 255;
+                _framebuffer[i].g = y % 255;
+                _framebuffer[i].b = i % 255;
+                i++;
+            }
+        }
+
+        update();
+    }
+
+    void Window::update() {
+        RGFW_event event;
+        while (RGFW_window_checkEvent(win, &event)) {
+           if (event.type == RGFW_quit) break;
+        }
+
+        RGFW_window_blitSurface(win, _surface);
+    }
+
+    void Window::resize(int width, int height, bool changeWindow){
+        this->width = width;
+        this->height = height;
+
+        if(changeWindow)
+        RGFW_window_resize(win, width, height);
+
+
+        if(_framebuffer != nullptr)
+            delete _framebuffer;
+        
+        _framebuffer = new Pixel[width * height];
+        _framebuffer_size = width * height;
+        _framebuffer_actualsize = width * height * sizeof(Pixel);
+
+        if(_surface != nullptr)
+            RGFW_surface_free(_surface);
+
+        _surface = RGFW_createSurface((uint8_t *)_framebuffer, width, height, RGFW_formatRGB8);
+
+        std::cout << std::format("Window resized {}, {}\n", width, height);
+    }
+
+    bool Window::shouldClose(){
+        return (RGFW_window_shouldClose(win) != RGFW_FALSE);
+    }
+
+    void Window::windowresizefunc(RGFW_window* window, int w, int h){
+        auto tis = reinterpret_cast<Window *>(RGFW_window_getUserPtr(window));
+        tis->resize(w, h, false);
+    }
+} // namespace rendering

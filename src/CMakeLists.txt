@@ -1,5 +1,5 @@
 # get files
-file(GLOB_RECURSE ROOT_FILES ./*.cpp ./*.c ./*.h ./*.hpp)
+file(GLOB_RECURSE ROOT_FILES CONFIGURE_DEPENDS ./*.cpp ./*.c ./*.h ./*.hpp)
 
 # create executables
 add_executable(${PROJECT_DISPLAYNAME} ${ROOT_FILES})
@@ -11,3 +11,6 @@ add_custom_target(assets
     COMMENT "Copying assets...")
 
 add_dependencies(${PROJECT_DISPLAYNAME} assets)
+
+# RGFW
+target_link_libraries(${PROJECT_DISPLAYNAME} PRIVATE rgfw)
