@@ -1,4 +1,5 @@
 #include "game.h"
+#include "rendering.h"
 
 #include <chrono>
 #include <iostream>

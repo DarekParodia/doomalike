@@ -25,7 +25,7 @@ namespace rendering {
         RGFW_window_setUserPtr(win, this);
         RGFW_window_setExitKey(win, RGFW_escape);
         RGFW_setWindowResizedCallback(windowresizefunc);
-
+        RGFW_setKeyCallback(keyfunc);
         // init buffer
         resize(width, height, false);
 
@@ -101,8 +101,29 @@ namespace rendering {
         return RGFW_window_shouldClose(win) != RGFW_FALSE;
     }
 
+    KeyState Window::getKeyState(RGFW_key key) {
+        // check if key value is registered
+        if(this->keyStates.find(key) == this->keyStates.end())
+            return KeyState::Released;
+        else
+            return this->keyStates.at(key);
+    }
+
     void Window::windowresizefunc(RGFW_window *window, int w, int h) {
         auto tis = reinterpret_cast<Window *>(RGFW_window_getUserPtr(window));
         tis->resize(w, h, false);
+    }
+
+    void Window::keyfunc(RGFW_window *win, u8 key, RGFW_keymod mod, RGFW_bool repeat, RGFW_bool pressed) {
+        (void) mod;
+
+        auto tis = reinterpret_cast<Window *>(RGFW_window_getUserPtr(win));
+        if(pressed)
+            if(repeat)
+                tis->keyStates[key] = KeyState::Held;
+            else
+                tis->keyStates[key] = KeyState::Pressed;
+        else
+            tis->keyStates[key] = KeyState::Released;
     }
 } // namespace rendering

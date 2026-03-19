@@ -14,6 +14,7 @@ namespace game {
     };
 
     struct Player : Entity {
+            float direction;
     };
 
 
