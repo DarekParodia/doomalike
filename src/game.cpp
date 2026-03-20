@@ -13,6 +13,9 @@ namespace game {
     constexpr RGFW_key leftKey     = RGFW_a;
     constexpr RGFW_key rightKey    = RGFW_d;
 
+    constexpr RGFW_key panLeftKey  = RGFW_left;
+    constexpr RGFW_key panRightKey = RGFW_right;
+
     namespace time {
         size_t                                currentFrame     = 0;
         float                                 frameTime        = 0.0f;
@@ -53,6 +56,11 @@ namespace game {
             shouldMove      = true;
         }
 
+        if(rendering::window.isKeyPressed(panLeftKey))
+            direction -= panSpeed * time::frameTimeSeconds;
+        if(rendering::window.isKeyPressed(panRightKey))
+            direction += panSpeed * time::frameTimeSeconds;
+
         // Calculate direction from input axes
         if(verticalAxis != 0.0f || horizontalAxis != 0.0f) {
             constexpr float radToDeg = 57.2957795f; // 180 / pi
@@ -63,18 +71,18 @@ namespace game {
                 outputPlayerDirector += 360.0f;
         }
 
-        this->direction = outputPlayerDirector;
+        this->moveDirection = outputPlayerDirector;
 
         // Move player based on angle
         if(shouldMove) {
             constexpr float degToRad  = 0.0174532925f; // pi / 180
-            float           dirRad    = this->direction * degToRad;
+            float           dirRad    = this->moveDirection * degToRad;
 
             this->x                  += std::sin(dirRad) * this->moveSpeed * time::frameTimeSeconds;
             this->y                  += std::cos(dirRad) * this->moveSpeed * time::frameTimeSeconds;
         }
 
-        logger->debug("Player Angle: {:.0f}, X: {:.3f} Y: {:.3f}", direction, x, y);
+        logger->debug("Player Angles: {:.0f} {:.0f}, X: {:.3f} Y: {:.3f}", direction, moveDirection, x, y);
     }
 
     // Game Functions
