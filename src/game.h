@@ -5,16 +5,23 @@
 namespace game {
     namespace time {
         extern size_t currentFrame;
-        extern float  frameTime;
+        extern float  frameTime; // miliseconds
+        extern float  frameTimeSeconds;
         extern float  framesPerSecond;
     }; // namespace time
 
     struct Entity {
-            int x, y;
+            float x, y;
+
+            float moveSpeed  = 1.0f;
+            bool  shouldMove = false;
     };
 
     struct Player : Entity {
-            float direction;
+            float direction;     // Degrees
+            float moveDirection; // Degrees
+
+            void  update();
     };
 
 

@@ -14,3 +14,7 @@ add_dependencies(${PROJECT_DISPLAYNAME} assets)
 
 # RGFW
 target_link_libraries(${PROJECT_DISPLAYNAME} PRIVATE rgfw)
+
+
+# spdlog
+target_link_libraries(${PROJECT_DISPLAYNAME} PRIVATE spdlog)

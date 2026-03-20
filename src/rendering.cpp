@@ -1,4 +1,5 @@
 #include "rendering.h"
+#include "game.h"
 
 namespace rendering {
     rendering::Window window(800, 600);
@@ -12,6 +13,10 @@ namespace rendering {
     void render() {
         clear();
 
+        // draw player
+        int x = game::player->x * zoom + window.width / 2;
+        int y = -game::player->y * zoom + window.height / 2;
+        drawRect(x, y, zoom, zoom, { 255, 255, 255 });
 
         window.update();
 
@@ -62,6 +67,24 @@ namespace rendering {
                 y   += sy;
             }
         }
+    }
+
+    void drawRect(int x, int y, int width, int height, Pixel color) {
+        if(width <= 0 || height <= 0) return;
+
+        int startX = (x < 0) ? 0 : x;
+        int startY = (y < 0) ? 0 : y;
+        int endX   = x + width;
+        int endY   = y + height;
+
+        if(endX > window.width) endX = window.width;
+        if(endY > window.height) endY = window.height;
+
+        if(startX >= endX || startY >= endY) return;
+
+        for(int py = startY; py < endY; ++py)
+            for(int px = startX; px < endX; ++px)
+                drawPixel(px, py, color);
     }
 
     size_t getIndexFromPosition(int x, int y) {

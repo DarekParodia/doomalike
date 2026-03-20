@@ -2,9 +2,11 @@
 
 #include "game.h"
 #include "rendering.h"
+#include "logger.h"
 
 int main() {
     std::cout << "halo dziala" << std::endl;
+    init_logger();
 
     game::init();
     rendering::init();

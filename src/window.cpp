@@ -101,6 +101,11 @@ namespace rendering {
         return RGFW_window_shouldClose(win) != RGFW_FALSE;
     }
 
+    bool Window::isKeyPressed(RGFW_key key) {
+        KeyState state = getKeyState(key);
+        return state == KeyState::Pressed || state == KeyState::Held;
+    }
+
     KeyState Window::getKeyState(RGFW_key key) {
         // check if key value is registered
         if(this->keyStates.find(key) == this->keyStates.end())

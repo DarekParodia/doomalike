@@ -5,6 +5,7 @@
 
 namespace rendering {
     extern rendering::Window window;
+    constexpr float          zoom = 100.0f;
 
     void                     init();
     void                     render();

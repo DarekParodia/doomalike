@@ -26,6 +26,7 @@ namespace rendering {
             void                                   update();
             void                                   resize(int width, int height, bool changeWindow = true);
             bool                                   shouldClose();
+            bool                                   isKeyPressed(RGFW_key key);
             KeyState                               getKeyState(RGFW_key key);
 
             static void                            windowresizefunc(RGFW_window *window, int w, int h);
