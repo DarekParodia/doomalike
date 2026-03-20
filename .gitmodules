@@ -1,3 +1,6 @@
 [submodule "include/RGFW"]
 	path = include/RGFW
 	url = https://github.com/ColleagueRiley/RGFW.git
+[submodule "include/spdlog"]
+	path = include/spdlog
+	url = https://github.com/gabime/spdlog.git
