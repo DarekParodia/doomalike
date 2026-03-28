@@ -11,15 +11,16 @@ namespace game {
     }; // namespace time
 
     struct Entity {
-            float direction;     // Degrees
-            float moveDirection; // Degrees
+            float direction     = 0.0f; // Degrees
+            float moveDirection = 0.0f; // Degrees
 
-            float panSpeed = 90.0f; // Degrees per second
+            float panSpeed      = 90.0f; // Degrees per second
 
-            float x, y;
+            float x             = 0.0f;
+            float y             = 0.0f;
 
-            float moveSpeed  = 1.0f; // Units per second
-            bool  shouldMove = false;
+            float moveSpeed     = 1.0f; // Units per second
+            bool  shouldMove    = false;
 
             void  update();
     };

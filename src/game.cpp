@@ -1,6 +1,7 @@
 #include "game.h"
 #include "rendering.h"
 #include "logger.h"
+#include "map.h"
 
 #include <chrono>
 #include <cmath>
@@ -82,7 +83,7 @@ namespace game {
             this->y                  += std::cos(dirRad) * this->moveSpeed * time::frameTimeSeconds;
         }
 
-        logger->debug("Player Angles: {:.0f} {:.0f}, X: {:.3f} Y: {:.3f}", direction, moveDirection, x, y);
+        // logger->debug("Player Angles: {:.0f} {:.0f}, X: {:.3f} Y: {:.3f}", direction, moveDirection, x, y);
     }
 
     // Game Functions
@@ -92,6 +93,8 @@ namespace game {
         player->y = 0;
 
         entities.push_back(*player);
+
+        map::loadLevels();
     }
 
     void update() {
